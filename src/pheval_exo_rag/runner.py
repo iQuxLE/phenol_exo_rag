@@ -3,6 +3,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from pheval.runners.runner import PhEvalRunner
 import core.runner as ck
+from src.pheval_exo_rag.constants import notFullhpListOfOMIM619340, allfromomim619340
+
 
 
 @dataclass
@@ -27,7 +29,8 @@ class CustomPhevalRunner(PhEvalRunner):
     def run(self):
         """run method."""
         if self.main_system is not None:
-            self.main_system.run_analysis() # input list of HPOs.
+            self.main_system.run_analysis(notFullhpListOfOMIM619340)
+            self.main_system.run_analysis(allfromomim619340)
             print("running with custom pheval runner")
         else:
             print("main_system is not initialized")
