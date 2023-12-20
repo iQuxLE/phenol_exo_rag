@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import List
+
 import numpy as np
 
 
@@ -11,7 +12,7 @@ class SimilarityService(ABC):
 
 class CosineSimilarity(SimilarityService):
     def calculate_similarity(self, vector_a: List[float], vector_b: List[float]) -> float:
-        """ Calculate the cosine similarity between two vectors. """
+        """Calculate the cosine similarity between two vectors."""
         dot_product = np.dot(vector_a, vector_b)
         norm_a = np.linalg.norm(vector_a)
         norm_b = np.linalg.norm(vector_b)
@@ -22,4 +23,3 @@ class L2Distance(SimilarityService):
     def calculate_similarity(self, vector_a: List[float], vector_b: List[float]) -> float:
         # Implement L2 distance calculation
         raise NotImplementedError
-

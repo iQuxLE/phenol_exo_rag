@@ -1,9 +1,10 @@
-
 import logging
 from typing import Optional
+
 import chromadb
-from src.pheval_exo_rag.utils.similarity_measures import SimilarityMeasures
+
 from src.pheval_exo_rag.config.config_loader import load_config
+from src.pheval_exo_rag.utils.similarity_measures import SimilarityMeasures
 
 logger = logging.getLogger(__name__)
 
@@ -11,15 +12,19 @@ logger = logging.getLogger(__name__)
 class ChromaDBManager:
     def __init__(self, similarity: Optional[SimilarityMeasures] = SimilarityMeasures.COSINE):
         config = self.load_config()
-        path = config['chroma_db_path']
+        path = config["chroma_db_path"]
         # if path is None:
         #     config = self.load_config()
         #     path = config['chroma_db_path']
         self.client = chromadb.PersistentClient(path=path)
         self.ont_hp = self.get_collection("ont_hp")
         self.hpoa = self.get_collection("hpoa")
-        self.hp_embeddings_collection = self.get_collection("HPtoEmbeddings") or self.create_collection("HPtoEmbeddings", similarity)
-        self.disease_avg_embeddings_collection = self.get_collection("DiseaseAvgEmbeddings") or self.create_collection("DiseaseAvgEmbeddings", similarity)
+        self.hp_embeddings_collection = self.get_collection("HPtoEmbeddings") or self.create_collection(
+            "HPtoEmbeddings", similarity
+        )
+        self.disease_avg_embeddings_collection = self.get_collection("DiseaseAvgEmbeddings") or self.create_collection(
+            "DiseaseAvgEmbeddings", similarity
+        )
 
     @staticmethod
     def load_config():

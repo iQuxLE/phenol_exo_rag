@@ -1,13 +1,16 @@
-from chromadb.types import Collection
 import time
+
+from chromadb.types import Collection
+
 from src.pheval_exo_rag.core.base_service import BaseService
 
 
 class DiseaseAvgEmbeddingService(BaseService):
+
     """
-        upsert averaged embeddings from hp_embeddings (cached dict from ont_hp collection) that are connected to the
-        relevant disease from disease_to_hps (cached dict from hpoa) into the disease_avg_embeddings_collection that
-        contains disease and the average embeddings of the correlating hp terms
+    upsert averaged embeddings from hp_embeddings (cached dict from ont_hp collection) that are connected to the
+    relevant disease from disease_to_hps (cached dict from hpoa) into the disease_avg_embeddings_collection that
+    contains disease and the average embeddings of the correlating hp terms
     """
 
     def process_data(self) -> Collection:

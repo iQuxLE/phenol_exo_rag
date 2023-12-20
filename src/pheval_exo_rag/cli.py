@@ -2,9 +2,7 @@
 import logging
 
 import click
-
-from {{ cookiecutter.project_name|lower()|replace(' ', '_')|replace('-', '_') }} import __version__
-from {{ cookiecutter.project_name|lower()|replace(' ', '_')|replace('-', '_') }}.main import demo
+from pheval_exo_rag import __version__, demo
 
 __all__ = [
     "main",

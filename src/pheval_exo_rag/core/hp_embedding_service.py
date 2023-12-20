@@ -1,16 +1,16 @@
-from typing import Dict
+
+import time
+
+import numpy as np
+from chromadb.types import Collection
 
 from src.pheval_exo_rag.core.base_service import BaseService
-from src.pheval_exo_rag.core.chromadb_manager import ChromaDBManager
-from src.pheval_exo_rag.core.data_processor import DataProcessor
-from chromadb.types import Collection
-import time
-import numpy as np
+
 
 class HPEmbeddingService(BaseService):
     def process_data(self) -> Collection:
         """
-            upsert hps and embeddings into hp_embeddings collection created by chromadbmanager
+        upsert hps and embeddings into hp_embeddings collection created by chromadbmanager
         """
         if not self.hp_embeddings:
             raise ValueError("HP embeddings data is not initialized")
@@ -24,7 +24,7 @@ class HPEmbeddingService(BaseService):
             np_array = self.hp_embeddings.items()
 
             for hp_id, data in self.hp_embeddings.items():
-                embedding_list = np.array(data['embeddings'])
+                embedding_list = np.array(data["embeddings"])
                 batch.append((hp_id, embedding_list.tolist()))
 
                 if len(batch) >= batch_size:

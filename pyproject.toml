@@ -1,10 +1,10 @@
 [tool.poetry]
 name = "exo_rag"
 version = "0.0.0"
-description = "exo_rag"
-authors = ["{{cookiecutter.full_name}} <{{cookiecutter.email}}>"]
+description = ""
+authors = ["Carlo Kroll <c.kroll@qmul.ac.uk>"]
 license = "MIT"
-readme = "README.md"
+packages = [{ include = "pheval_exo_rag", from = "src" }]
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -28,7 +28,11 @@ sphinx-click = {version = ">=4.3.0"}
 myst-parser = {version = ">=0.18.1"}
 
 [tool.poetry.scripts]
-exo_rag = "{{ cookiecutter.project_name|lower()|replace(' ', '_')|replace('-', '_') }}.cli:main"
+exo_rag = "pheval_exo_rag.cli:main"
+
+[tool.poetry.plugins."pheval.plugins"]
+customrunner = "pheval_exo_rag.runner:ExoRagPhevalRunner"
+
 
 [tool.poetry-dynamic-versioning]
 enable = true

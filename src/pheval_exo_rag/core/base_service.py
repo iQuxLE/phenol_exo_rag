@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 
 from chromadb.types import Collection
+
 from src.pheval_exo_rag.core.data_processor import DataProcessor
 
 """
@@ -23,6 +24,7 @@ class BaseService(ABC):
     @abstractmethod
     def process_data(self) -> Collection:
         pass
+
     @abstractmethod
     def upsert_batch(self, batch):
         pass

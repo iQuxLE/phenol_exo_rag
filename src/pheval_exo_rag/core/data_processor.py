@@ -1,15 +1,15 @@
 import json
 from typing import Dict
 
-from chromadb.types import Collection
-from src.pheval_exo_rag.core.chromadb_manager import ChromaDBManager
 import numpy as np
+from chromadb.types import Collection
 
+from src.pheval_exo_rag.core.chromadb_manager import ChromaDBManager
 from src.pheval_exo_rag.core.OMIMHPOExtractor import OMIMHPOExtractor
 
 """
-    This class main function is to create cached dictionaries from the ont_hp and hpoa collection given by the 
-    ChromaDBManager. It also should calculate the 
+    This class main function is to create cached dictionaries from the ont_hp and hpoa collection given by the
+    ChromaDBManager. It also should calculate the
 """
 
 
@@ -54,7 +54,7 @@ class DataProcessor:
         hpo_id_to_data = {}
         results = collection.get(include=["metadatas", "embeddings"])
         for metadata, embedding in zip(results.get("metadatas", []), results.get("embeddings", [])):
-            metadata_json = json.loads(metadata['_json'])
+            metadata_json = json.loads(metadata["_json"])
             hpo_id = metadata_json.get("original_id")
             if hpo_id:
                 hpo_id_to_data[hpo_id] = {"embeddings": embedding}  # #{'HP:0005872': [1,2,3, ...]}
@@ -83,7 +83,7 @@ class DataProcessor:
         for item in results.get("metadatas"):
             metadata_json = json.loads(item["_json"])
             disease = metadata_json.get("disease")
-            phenotype = metadata_json.get('phenotype')
+            phenotype = metadata_json.get("phenotype")
             if disease and phenotype:
                 if disease not in disease_to_hps_dict:
                     disease_to_hps_dict[disease] = [phenotype]
@@ -100,13 +100,12 @@ class DataProcessor:
         :param embeddings_dict: Dictionary mapping HPO IDs to their embeddings.
         :return: A numpy array representing the average embedding for the HPO IDs.
         """
-        embeddings = [embeddings_dict[hp_id]['embeddings'] for hp_id in hps if hp_id in embeddings_dict]
+        embeddings = [embeddings_dict[hp_id]["embeddings"] for hp_id in hps if hp_id in embeddings_dict]
         return np.mean(embeddings, axis=0) if embeddings else []
 
     # deprecated cause using hpoa collection instead of .hpoa file now
     @staticmethod
     def extract_and_use_omim_hpo_mappings(file_path):
-        with open(file_path, 'r') as file:
+        with open(file_path, "r") as file:
             data = file.read()
         return OMIMHPOExtractor.extract_omim_hpo_mappings(data)
-

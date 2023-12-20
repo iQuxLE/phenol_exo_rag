@@ -8,18 +8,18 @@ class OMIMHPOExtractor:
         :return: Dictionary with OMIM IDs as keys and lists of HPO IDs as values.
         """
         omim_hpo_dict = {}
-        lines = data.split('\n')
+        lines = data.split("\n")
         header_skipped = False
 
         for line in lines:
-            if not line or line.startswith('#'):
+            if not line or line.startswith("#"):
                 continue
 
             if not header_skipped:
                 header_skipped = True
                 continue
 
-            parts = line.split('\t')
+            parts = line.split("\t")
             if len(parts) < 4:
                 continue
 
@@ -34,4 +34,3 @@ class OMIMHPOExtractor:
             omim_hpo_dict[omim] = list(omim_hpo_dict[omim])
 
         return omim_hpo_dict
-

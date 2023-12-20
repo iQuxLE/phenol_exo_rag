@@ -2,7 +2,7 @@
 
 import unittest
 
-from {{ cookiecutter.project_name|lower()|replace(' ', '_')|replace('-', '_') }} import __version__
+from pheval_exo_rag import __version__
 
 
 class TestVersion(unittest.TestCase):
